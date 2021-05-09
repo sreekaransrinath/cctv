@@ -76,10 +76,10 @@ def gen_frames():
 
 
 @app.route('/video')
-def video_feed(_):
+def video_feed(response):
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen_frames(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
+    response.headers["Mime-Type"] = "multipart/x-mixed-replace; boundary=frame"
+    return gen_frames()
 # async def video_endpoint(range: str = Header(None)):
 #     # print(range)
 #     start, end = range.replace("bytes=", "").split("-")
